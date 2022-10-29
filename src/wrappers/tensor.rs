@@ -20,6 +20,7 @@ pub struct Tensor {
 }
 
 unsafe impl Send for Tensor {}
+unsafe impl Sync for Tensor {}
 
 pub extern "C" fn add_callback(data: *mut c_void, name: *const c_char, c_tensor: *mut C_tensor) {
     let name = unsafe { std::ffi::CStr::from_ptr(name).to_str().unwrap() };
@@ -711,6 +712,12 @@ impl Default for Tensor {
 impl Drop for Tensor {
     fn drop(&mut self) {
         unsafe_torch!(at_free(self.c_tensor))
+    }
+}
+
+impl Clone for Tensor {
+    fn clone(&self) -> Self {
+        self.copy()
     }
 }
 
