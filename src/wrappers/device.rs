@@ -9,6 +9,12 @@ pub enum Device {
     Cuda(usize),
 }
 
+impl Default for Device {
+    fn default() -> Self {
+        Device::Cpu
+    }
+}
+
 /// Cuda related helper functions.
 pub enum Cuda {}
 impl Cuda {

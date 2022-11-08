@@ -24,6 +24,12 @@ pub enum Kind {
     BFloat16,
 }
 
+impl Default for Kind {
+    fn default() -> Self {
+        Kind::Float
+    }
+}
+
 impl Kind {
     pub(super) fn c_int(self) -> libc::c_int {
         // These values should be in sync with include/c10/core/ScalarType.h
